@@ -24,11 +24,15 @@ runs:
     - name: Check out repository code
       uses: actions/checkout@v2
     - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      shell: bash
     - name: NPM install
+      shell: bash
       run: npm install
     - name: NPM build
+      shell: bash
       run: npm run build
     - name: List files in the repository
+      shell: bash
       run: |
         ls ${{ github.workspace }}
     - name: Configure AWS credentials
@@ -38,9 +42,11 @@ runs:
         aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
         aws-region: ${{ inputs.aws-region }}
     - name: Copy files to s3 bucket
+      shell: bash
       run: |
         aws s3 sync build/ s3://${{ inputs.aws-s3-bucket-name }}/public/
         aws s3 cp build/index.html s3://${{ inputs.aws-s3-bucket-name }}/
     - name: Invalidate cache so CF stops serving old non existent versions
+      shell: bash
       run: |
         aws cloudfront create-invalidation --distribution-id ${{ inputs.aws-cf-id }} --paths '/*'
