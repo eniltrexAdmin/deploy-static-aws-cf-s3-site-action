@@ -14,7 +14,6 @@ inputs:
   aws-s3-bucket-name:
     description: 'The s3 bucket name where Cloudfront points as its origin'
     required: true
-    default: 'cesc-cool-production'
   aws-cf-id:
     description: 'The Cloudfront distribution ID, something that like like EXXXXXXXX'
     required: true
